@@ -8,8 +8,8 @@ public class MyPreferences {
     Context context ;
     public String prefName = "MyPreferences";
 
-    static SharedPreferences mySharedPreference;
-    static SharedPreferences.Editor myEditor;
+    SharedPreferences mySharedPreference;
+    SharedPreferences.Editor myEditor;
     public static int PRIVATE_MODE = 0;
 
     public MyPreferences(Context context, String prefName) {
@@ -20,7 +20,7 @@ public class MyPreferences {
         myEditor = mySharedPreference.edit();
     }
 
-    public static void setPreference(String key, String value) {
+    public void setPreference(String key, String value) {
         myEditor = mySharedPreference.edit();
         myEditor.putString(key, value);
         myEditor.commit();
