@@ -2,6 +2,9 @@ package com.itechnotion.shared_objects.utils;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +30,7 @@ public class MyAppUtils {
         return versionName;
     }
 
-    private static String capitalize(String s) {
+    public static String capitalize(String s) {
         if (s == null || s.length() == 0) {
             return "";
         }
@@ -59,4 +62,17 @@ public class MyAppUtils {
         return finalDate;
     }
 
+    public static boolean isNetworkConnected(Context context) {
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+    public static void hideKeyboard(View view, Context c) {
+        InputMethodManager inputMethodManager = (InputMethodManager) c.getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
 }
