@@ -1,16 +1,23 @@
 package com.itechnotion.shared_objects.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import com.itechnotion.shared_objects.sessionmanager.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class MyAppUtils {
+
+    private static AlertDialog alertDialog;
 
     public static String pad(int c) {
         if (c >= 10)
@@ -74,5 +81,50 @@ public class MyAppUtils {
 
     public static boolean isValidEmail(CharSequence target) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
+    public static void alertDialogOneButton(Context context, String title, String message,
+                                       Drawable icon, boolean showTitle, String btnPositiveText) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setIcon(icon);
+        if (showTitle) {
+            alertDialogBuilder.setTitle(title);
+        }
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(btnPositiveText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+
+                    }
+                });
+        alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public static void alertDialogTwoButton(Context context, String title, String message,
+                                               Drawable icon, boolean showTitle, String btnPositiveText, String btnNegativeText) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setIcon(icon);
+        if (showTitle) {
+            alertDialogBuilder.setTitle(title);
+        }
+        alertDialogBuilder
+                .setMessage(message)
+                .setCancelable(false)
+                .setNegativeButton(btnNegativeText, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.cancel();
+                    }
+                })
+                .setPositiveButton(btnPositiveText, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
