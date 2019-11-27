@@ -20,6 +20,23 @@ public class MyPreferences {
         myEditor = mySharedPreference.edit();
     }
 
+    public MyPreferences(Context context, String prefName, int prefMode) {
+        this.context = context;
+        this.prefName = prefName ;
+
+        if (prefMode == Context.MODE_PRIVATE){
+            mySharedPreference = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
+        }else if (prefMode == Context.MODE_WORLD_WRITEABLE){
+            mySharedPreference = context.getSharedPreferences(prefName, Context.MODE_WORLD_WRITEABLE);
+        }else if (prefMode == Context.MODE_WORLD_READABLE){
+            mySharedPreference = context.getSharedPreferences(prefName, Context.MODE_WORLD_READABLE);
+        }else{
+            mySharedPreference = context.getSharedPreferences(prefName, PRIVATE_MODE);
+        }
+
+        myEditor = mySharedPreference.edit();
+    }
+
     public void setPreference(String key, String value) {
         myEditor = mySharedPreference.edit();
         myEditor.putString(key, value);
